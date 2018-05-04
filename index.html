@@ -181,7 +181,26 @@
       Video 58
     </li>
   </ul>
+
 <script>
+  const timeNodes = Array.from(document.querySelectorAll("[data-time]"))
+
+  //Get total number of seconds from the <li/>'s data-time attribute
+  let seconds = timeNodes.reduce((total, timeNode) => {
+    let parts = timeNode.dataset.time.split(":")
+    let [minutes, seconds] = parts
+
+    return total + (parseFloat(minutes) * 60 + parseFloat(seconds))
+  }, 0)
+
+  let hours = Math.floor(seconds / 3600)
+  seconds -= hours * 3600
+
+  let minutes = Math.floor(seconds / 60)
+  seconds -= minutes * 60
+
+  const formattedTime = `${hours}:${minutes >= 10 ? minutes : "0"+minutes}:${seconds >= 10 ? seconds : "0"+seconds}`
+  console.log(formattedTime)
 </script>
 </body>
 </html>
